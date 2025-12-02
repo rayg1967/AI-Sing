@@ -1,0 +1,48 @@
+name: Build Ai-Sing Installer
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build app
+      run: npm run build
+
+    - name: Package Electron app
+      run: npm run dist
+
+    - name: Install Inno Setup
+      run: choco install innosetup -y
+
+    - name: Compile installer
+      run: |
+        "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" build\inno-setup.iss
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Ai-Sing-Installer
+        path: Output\Ai-Sing_Setup.exe
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: Output\Ai-Sing_Setup.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
