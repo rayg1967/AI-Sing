@@ -1,0 +1,1 @@
+{"name":"AI-Sing","version":"1.0.0","description":"A simple AI-powered singing application","main":"index.js","scripts":{"start":"node index.js","test":"echo \"Error: no test specified\" && exit 1"},"dependencies":{"express":"^4.17.1","axios":"^0.21.1"},"devDependencies":{},"keywords":[],"author":"rayg1967","license":"ISC"}
