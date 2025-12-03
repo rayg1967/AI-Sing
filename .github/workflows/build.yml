@@ -1,4 +1,4 @@
-name: Build Ai-Sing Installer
+name: Build Installer
 
 on:
   push:
