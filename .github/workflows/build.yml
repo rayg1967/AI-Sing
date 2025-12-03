@@ -16,8 +16,7 @@ jobs:
         with:
           fetch-depth: 1
           clean: true
-          path: AI-Sing
-
+          
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,10 +24,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: AI-Sing
-
+        
       - name: Build installer
         run: npm run build
-        working-directory: AI-Sing
+        
+
 
         
