@@ -15,11 +15,11 @@ jobs:
 
     - name: install dependencies
       run: npm install
-      working-directory: ${{ github.
+      working-directory: ${{ .github
       
     - name: Build app
       run: npm run build
-      working-directory: ${{ github
+      working-directory: ${{ .github
 
     - name: Build app
       run: npm run build
