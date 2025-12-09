@@ -1,4 +1,4 @@
-name: Build Installer
+Name: Build Installer
 
 on:
   push:
@@ -21,6 +21,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+          
+      # 1. Caching: Use the package-lock.json to create a unique key for the node_modules cache
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -28,6 +37,15 @@ jobs:
       - name: Build installer
         run: npm run build
         
+      # 2. Artifact Upload: Saves the built file so you can download it later
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer
+          # 🚨 IMPORTANT: Replace this path with the actual location of your generated installer file.
+          # Common paths include 'dist/', 'build/', or 'out/'.
+          path: dist/YourAppSetup.exe
+
 
 
         
